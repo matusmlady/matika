@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<!--vysvetlivky on hover atd-->
+<!--document.getElementsByClassName("menuButtons").style="border:4px solid blue"-->
+<!--style="border:4px solid blue";;document.getElementById((typ.name+"Button")).style="border:4px solid blue";document.getElementById((typ.name+"Button")).style="border:4px solid blue";-->
+
+<html lang='sk'>
+<head>
+<meta charset='UTF-8' />
+<title>matiKa</title>
+<link rel="stylesheet" href="website3.css">
+</head>
+
+<body>
+
+<div id='menuMain' class='box'>
+<p class='innerBox'>
+<button type='button' onclick='generuj(scitovanie)'>Sčitovanie do 20</button>
+<button type='button' onclick='generuj(odcitovanie)'>Odčitovanie do 20</button>
+<button type='button' onclick='generuj(nasobenie)'>Malá násobilka</button>
+<button type='button' onclick='generuj(delenie)'>Delenie bezo zvyšku</button>
+<button type='button' onclick='generuj(zaokruhlovanie)'>Zaokrúhľovanie</button>
+<button type='button' onclick='generuj(scitovanieMnohoclenov)'>Sčitovanie viacciferných čísel</button>
+<button type='button' onclick='generuj(nasobenieViacCiferneho)'>Násobenie viacciferných čísel</button>
+</p>
+<p id='casovacParagraph' class='innerBox'>
+<button id='casovacButton' type='button' onclick='casovacFunction()' title="Nastavte si čas, za ktorý chcete príklad vypočítať." >Počítanie na čas</button>
+</p>
+</div>
+
+<div id='prikladMain' class='box'>
+<p class='innerBox' id='prikladSamotny' style='padding:7px'>Vitajte na matiKe!</p>
+</div>
+<!--<p class='prikladSamotny' id='prikladSamotny'><button type='button' onclick='generuj(scitovanieMnohoclenov)'>Generate</button></p>-->
+
+<div id='outputMain' class='box'></div>
+
+<div class='box'><div id='canvasMain'></div></div>
+
+<address>by Matúš Mladý</address>
+<script src='website9.js'></script>
+<!--<script src='test.js'></script>-->
+<noscript>Táto stránka stojí a padá na JavaScripte.</noscript>
+</body>
+</html>
