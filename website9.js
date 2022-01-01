@@ -463,7 +463,7 @@ function casovacActivate(){
 function slow(){
   check()
   //na koniecoutputMain prida paragraf outputTimerTimeOver so znenim ze ubehol cas; vzdy po uplinuti casovaca, ktory je pusteny generaciou prikladu a preruseny len spravnym vysledkom
-  document.getElementById('outputMain').innerHTML += "<p class='output' id='outputTimerTimeOver'><em>Ubehol čas.</em></p></div>"
+  document.getElementById('outputMain').innerHTML += "<div class='output'><p><em>Ubehol čas.</em></p></div>"
   console.log('time over')
 }
 
