@@ -1,7 +1,6 @@
 let timer, predosleZnenie, time
 animacieInstrukcie=[]
-prestavkovyCas=300
-
+prestavkovyCas=500
 
 function generuj(arg){
   document.getElementById("canvasMain").innerHTML=''
@@ -12,9 +11,7 @@ function generuj(arg){
   document.getElementById("prikladSamotny").innerHTML = znenie
   document.getElementById("inputVysledok").focus()
   if (time!=undefined){clearTimeout(timer);timer = setTimeout(slow, time)}
-  console.log(vysledok)
 }
-
 
 function scitovanie(){
   const prveCislo = Math.floor(Math.random()*19+1)
@@ -23,7 +20,6 @@ function scitovanie(){
   znenie = prveCislo + ' + ' + druheCislo
   chvost()
 }
-
 
 function chvost(){
   chvostZaciatok()
@@ -36,7 +32,6 @@ function chvostKoniec(){
   znenie += "<button id='submitButton' type='button' onclick='check()'>Skontrolovať</button><button id='generateButton' type='button' onclick='generuj(predoslyTyp)'>Nový príklad</button>"
 }
 
-
 function odcitovanie(){
   const prveCislo = Math.floor(Math.random()*20+1)
   const druheCislo = Math.floor(Math.random()*(prveCislo-1)+1)
@@ -45,7 +40,6 @@ function odcitovanie(){
   chvost()
 }
 
-
 function nasobenie(){
   const prveCislo = Math.floor(Math.random()*9+1)
   const druheCislo = Math.floor(Math.random()*10)
@@ -53,7 +47,6 @@ function nasobenie(){
   znenie = prveCislo + ' * ' + druheCislo
   chvost()
 }
-
 
 function delenie(){
   const prveCislo = Math.floor(Math.random()*10)
@@ -79,8 +72,6 @@ function delenie(){
   znenie +='<select id="dropdown"><option value="1">špeciálne prípady</option><option value="2">1. nulou sa nedelí</option></select>'
   chvostKoniec()
 }
-
-
 
 function check(){
   let vstupVysledok = document.getElementById("inputVysledok")
@@ -124,7 +115,6 @@ function check(){
   }
 }
 
-
 function zaokruhlovanie(){
   const prveCisloNezaokruhlene = Math.random()*10+1
   const desatinneMiesta = Math.floor(Math.random()*15)
@@ -139,7 +129,6 @@ function zaokruhlovanie(){
     znenie += ' desatinných miest' }
   chvost()
 }
-
 
 function scitovanieMnohoclenov(){
   let pocetCifier = 4
@@ -163,7 +152,6 @@ function scitovanieMnohoclenov(){
   chvostKoniec()
 }
 
-
 function scitovanieArray(argCislaRaw=cisla){
   let argCisla=argCislaRaw.map(daneCislo => (daneCislo.map(danaCifra => danaCifra)))
   let najdlhsiVstup = Math.max(...argCisla.map(ciselko => ciselko.length))
@@ -183,7 +171,7 @@ function scitovanieArray(argCislaRaw=cisla){
         vysledok[z] += argCisla[x][z-1]
       }
       if (vysledok[z]>9){
-        zvysok = Math.floor(vysledok[z]/10)//zobere aj v pripade ze prenesiem 20 atd, nezoberie ak mam 100+ lebo zaokruhli na 10+; co nechcem
+        zvysok = Math.floor(vysledok[z]/10)//zobere aj v pripade ze prenesiem 20 atd, nezoberie ak mam 100+ lebo zaokruhli na 10+, co nechcem
         vysledok[z] -= zvysok*10
       } else {
         zvysok = 0
@@ -195,7 +183,6 @@ function scitovanieArray(argCislaRaw=cisla){
   vysledokZvysok=vysledokZvysokLocal
 }
 
-
 function nakresliCiaru(xArg,yArg,text='',dlzka=vysledok.length){
   animacieInstrukcie.push(setTimeout(function(){
       ctx.font = "40px Arial"; ctx.beginPath(); ctx.moveTo(xArg+25,yArg); ctx.lineTo(xArg-30*vysledok.length,yArg); ctx.stroke()
@@ -206,7 +193,7 @@ function nakresliCiaru(xArg,yArg,text='',dlzka=vysledok.length){
 function nakresliPoleSpredu(arg,xArg,
 
 yArg){
-  animacieInstrukcie.push(setTimeout(function(){console.log('spredu');ctx.font = "30px Arial";
+  animacieInstrukcie.push(setTimeout(function(){ctx.font = "30px Arial";
     xPosun = -30*arg.length},prestavka+=1))
   for (let e=0;e<arg.length;e++){
     animacieInstrukcie.push(setTimeout(function(){ctx.fillText(arg[e], xArg+(xPosun+=30), yArg)},prestavka+=prestavkovyCas))
@@ -214,7 +201,7 @@ yArg){
 }
 
 function nakresliPoleZozaduRozsirene(argNormal,argZvysok,xArg,yArg){
-  animacieInstrukcie.push(setTimeout(function(){console.log('zozadu');xPosun = 30},prestavka+=1))
+  animacieInstrukcie.push(setTimeout(function(){xPosun = 30},prestavka+=1))
   for (let e=argNormal.length-1;e>=0;e--){
     animacieInstrukcie.push(setTimeout(function(){ctx.font = "30px Arial"; ctx.fillText(argNormal[e], xArg+(xPosun-=30), yArg) },prestavka+=prestavkovyCas))
     if (argZvysok[e]!=0 && !(e==0 || (e==1 && argZvysok[1]==argNormal[0]) )){
@@ -229,13 +216,16 @@ function nulovanieAnimacii(){
   }
 }
 
-
 function postupScitovanie(){
-
   prestavka=0
   if (document.getElementById("canvasMain").innerHTML.includes('myCanvas')){
     document.getElementById("canvasMain").innerHTML=''
     return
+  }
+  function scitajDveCisla(argPrve,argDruhe){
+    nakresliPoleSpredu(argPrve,x,y+=30)
+    nakresliPoleSpredu(argDruhe,x,y+=30)
+    nakresliCiaru(x,y+=10);
   }
   
   nulovanieAnimacii()
@@ -243,50 +233,45 @@ function postupScitovanie(){
   
   document.getElementById("canvasMain").innerHTML='<div class="blok"><canvas id="myCanvas1" style="width:250px;height:130px">Použite prosím novší prehliadač.</canvas><canvas id="myCanvas2" style="width:250px;height:130px">Použite prosím novší prehliadač.</canvas><canvas id="myCanvas3" style="width:250px;height:130px">Použite prosím novší prehliadač.</canvas></div>';
   
-  c = document.getElementById("myCanvas1");
-  ctx = c.getContext("2d");
-  ctx.fillStyle= '#ff6347';
-  ctx.strokeStyle='#ff6347' ; 
-  x=c.width-(c.width-vysledok.length*30)/2;
-  y=20;
-  scitajDveCisla(cisla[0],cisla[1]);
-  scitovanieArray(cisla.slice(0,2));
-  nakresliPoleZozaduRozsirene(vysledok,vysledokZvysok,x,y+=30);
+  c = document.getElementById("myCanvas1")
+  ctx = c.getContext("2d")
+  ctx.fillStyle= '#ff6347'
+  ctx.strokeStyle='#ff6347'
+  x=c.width-(c.width-vysledok.length*30)/2
+  y=20
+  scitajDveCisla(cisla[0],cisla[1])
+  scitovanieArray(cisla.slice(0,2))
+  nakresliPoleZozaduRozsirene(vysledok,vysledokZvysok,x,y+=30)
   
-  
-  setTimeout(function(){c = document.getElementById("myCanvas2");
-  console.log('prvacast')
-  ctx = c.getContext("2d");
-  ctx.fillStyle= '#ff6347';
-  ctx.strokeStyle='#ff6347'}, prestavka+=250) 
-  x=c.width-(c.width-vysledok.length*30)/2;
-  y=20;
-  scitajDveCisla(vysledok,cisla[2]);
-  scitovanieArray([vysledok,cisla[2]]);
+  animacieInstrukcie.push(
+    setTimeout(function(){c = document.getElementById("myCanvas2");
+      ctx = c.getContext("2d");
+      ctx.fillStyle= '#ff6347';
+      ctx.strokeStyle='#ff6347'}, prestavka+=250)
+  )
+  x=c.width-(c.width-vysledok.length*30)/2
+  y=20
+  scitajDveCisla(vysledok,cisla[2])
+  scitovanieArray([vysledok,cisla[2]])
   nakresliPoleZozaduRozsirene(vysledok,vysledokZvysok,x,y+=30)
 
 
-  setTimeout(function(){c = document.getElementById("myCanvas3");
-  console.log('druhacast')
-  ctx = c.getContext("2d");
-  ctx.fillStyle= '#ff6347';
-  ctx.strokeStyle='#ff6347' ; }, prestavka+=250) 
-  x=c.width-(c.width-vysledok.length*30)/2;
-  y=20;
-  scitajDveCisla(vysledok,cisla[3]);
-  scitovanieArray([vysledok,cisla[3]]);
-  nakresliPoleZozaduRozsirene(vysledok,vysledokZvysok,x,y+=30); 
+  animacieInstrukcie.push(
+    setTimeout(function(){c = document.getElementById("myCanvas3");
+      ctx = c.getContext("2d");
+      ctx.fillStyle= '#ff6347';
+      ctx.strokeStyle='#ff6347'}, prestavka+=250)
+  )
+  
+  
+  x=c.width-(c.width-vysledok.length*30)/2
+  y=20
+  scitajDveCisla(vysledok,cisla[3])
+  scitovanieArray([vysledok,cisla[3]])
+  nakresliPoleZozaduRozsirene(vysledok,vysledokZvysok,x,y+=30)
 
   vysledok=vysledok.join("")
-  
-  function scitajDveCisla(argPrve,argDruhe){
-    nakresliPoleSpredu(argPrve,x,y+=30)
-    nakresliPoleSpredu(argDruhe,x,y+=30)
-    nakresliCiaru(x,y+=10);
-  }
-
 }
-
 
 function nasobenieViacCiferneho(){
   pocetCifierPrveho = Math.floor(Math.random()*9+1)//<1;9>
@@ -308,7 +293,6 @@ function nasobenieViacCiferneho(){
   }
 
   znenie=prvySucinitel.join("")+' * '+druhySucinitel.join("")
-  
   if (druhySucinitel.length>prvySucinitel.length){
     let tempArray=prvySucinitel
     prvySucinitel=druhySucinitel
@@ -331,7 +315,7 @@ function nasobenieViacCiferneho(){
         }//aby som nenasobil nulou kazdu cifru; necha vsak stale prazdne slots na prvych zvysnych miestach
         cisla[pocetCifierDruheho-1-z][x]=druhySucinitel[z]*prvySucinitel[x-1]+zvysok
         if (cisla[pocetCifierDruheho-1-z][x]>9){
-          zvysok = Math.floor(cisla[pocetCifierDruheho-1-z][x]/10)//zobere aj v pripade ze prenesiem 20 atd nezoberie ako mam 100+ lebo zaokruhli na 10+
+          zvysok = Math.floor(cisla[pocetCifierDruheho-1-z][x]/10)
           cisla[pocetCifierDruheho-1-z][x] -= zvysok*10
         } else {
           zvysok = 0
@@ -361,12 +345,10 @@ function nasobenieViacCiferneho(){
   scitovanieArray()
   neupravenyVysledok=vysledok.map(danaCifra => danaCifra)
   vysledok=vysledok.join("")
-
   chvostZaciatok()
   znenie +="<button id='postupButton' type='button' onclick='postupNasobenie()'>Postup</button>"
   chvostKoniec()
 }
-
 
 function postupNasobenie(){
   prestavka=0
@@ -392,7 +374,6 @@ function postupNasobenie(){
   nakresliPoleSpredu(prvySucinitel,x,y)
   nakresliPoleSpredu(druhySucinitel,x,y+=30)
   nakresliCiaru(x,y+=10,'.')
-
   
   for (let w=0;w<cisla.length;w++){
     nakresliPoleZozaduRozsirene(neupraveneCisla[w],cislaZvysok[w],x,y+=30)
@@ -405,7 +386,6 @@ function postupNasobenie(){
     nakresliPoleZozaduRozsirene(neupravenyVysledok,vysledokZvysok,x,y+=30)
   }
 }
-
 
 function casovacFunction(){
   //zbali menu casovaca
@@ -424,49 +404,47 @@ function casovacFunction(){
 }  
 
 function casovacActivate(){
-  let casovacVstup = document.getElementById('inputCasovac').value.replace(",",".");
-  if (casovacVstup==''){
+  let casovacVstupnePole = document.getElementById('inputCasovac')
+  let casovacVstupnaHodnota = casovacVstupnePole.value.replace(",",".");
+  if (casovacVstupnaHodnota==''){
     document.getElementById("casovacParagraph").innerHTML = "<button id='casovacButton' type='button' title='Nastavte si čas, za ktorý chcete príklad vypočítať.' onclick='casovacFunction()'>Počítanie na čas</button>"
     time=undefined
     clearTimeout(timer)
     document.getElementById('outputMain').innerHTML += "<div class='output'><p>Časovač <em>nebol</em> nastavený.</p>"
+    if (predosleZnenie!=undefined){document.getElementById('inputVysledok').focus()}
     return
   }
-  else if (isNaN(casovacVstup)){
+  else if (isNaN(casovacVstupnaHodnota)){
     document.getElementById('outputMain').innerHTML += "<div class='output'><p>Asi máte <em>preklep</em>.</p></div>"
-    document.getElementById('inputCasovac').focus()
+    casovacVstupnePole.focus()
     return
   }
-  else if (casovacVstup.includes('.')){
+  else if (casovacVstupnaHodnota.includes('.')){
     document.getElementById('outputMain').innerHTML += "<div class='output'><p>Zadajte prosím celé číslo (<em>bez</em> desatinnej čiarky).</p></div>"
-    document.getElementById('inputCasovac').focus()
+    casovacVstupnePole.focus()
     return
   }  
-  else if (casovacVstup<=0){
+  else if (casovacVstupnaHodnota<=0){
     document.getElementById('outputMain').innerHTML += "<div class='output'><p>V tomto prípade je zbytočné nastavovať časovač.</p></div>"
-    document.getElementById('inputCasovac').focus()
+    casovacVstupnePole.focus()
     return
   }  
-  else if (casovacVstup<5){
+  else if (casovacVstupnaHodnota<5){
     document.getElementById('outputMain').innerHTML += "<div class='output'><p>Zadajte prosím <em>aspoň</em> 5 sekúnd.</p></div>"
-    document.getElementById('inputCasovac').focus()
+    casovacVstupnePole.focus()
     return
   }
   
-  document.getElementById('outputMain').innerHTML += "<div class='output'><p>Časovač bol úspešne nastavený na "+casovacVstup+"s.</p></div>"
-  time=casovacVstup*1000
-  if (predosleZnenie!=undefined){timer = setTimeout(slow, time)}
+  document.getElementById('outputMain').innerHTML += "<div class='output'><p>Časovač bol úspešne nastavený na "+casovacVstupnaHodnota+"s.</p></div>"
+  time=casovacVstupnaHodnota*1000
+  if (predosleZnenie!=undefined){timer = setTimeout(slow, time); document.getElementById('inputVysledok').focus()}
   document.getElementById("casovacParagraph").innerHTML = "<button style='border:4px solid blue' id='casovacButton' type='button' title='Nastavte si čas, za ktorý chcete príklad vypočítať.' onclick='casovacFunction()'>Počítanie na čas</button>"
-  
 }
 
 function slow(){
   check()
-  //na koniecoutputMain prida paragraf outputTimerTimeOver so znenim ze ubehol cas; vzdy po uplinuti casovaca, ktory je pusteny generaciou prikladu a preruseny len spravnym vysledkom
   document.getElementById('outputMain').innerHTML += "<div class='output'><p><em>Ubehol čas.</em></p></div>"
-  console.log('time over')
 }
-
 
 
 
