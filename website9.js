@@ -269,6 +269,7 @@ function nulovanieAnimacii(){
 }
 
 function postupScitovanie(){
+  document.getElementById("inputVysledok").focus()
   prestavka = 0
   if (platnoHlavne.innerHTML.includes('myCanvas')){
     platnoHlavne.innerHTML = ''
@@ -411,6 +412,7 @@ function nasobenieViacCiferneho(){
 }
 
 function postupNasobenie(){
+  document.getElementById("inputVysledok").focus()
   prestavka = 0
   if (platnoHlavne.innerHTML.includes('myCanvas')){
     platnoHlavne.innerHTML = ''
