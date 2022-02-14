@@ -1,13 +1,11 @@
-body {
+﻿body {
   background:black;
   color:white;
-  
   font-family: Comic Sans;
-  text-align:center;/**/
+  text-align:center;
 }
 
 p, button, input, form, canvas {
-  border:1px none red;/*  border:4px solid #666;  border:1px none white;  border:3px solid #666;*/
   display:inline;
 }
 
@@ -17,18 +15,18 @@ button, select, input {
   border:4px solid #666;
   margin:5px;
 }
-input {
-  border:4px solid #888;
-}
+
 button:hover, select:hover {
   background:gray;
   cursor:pointer;
 }
+
 input {
   outline:none;
   text-align:center;
-  border:2px solid gray;
+  border:3px solid gray;
 }
+
 input:focus {
     border:4px solid silver;
 }
@@ -41,15 +39,8 @@ p {
   display:inline-block;
 }
 
-/*#canvasMain {
-  display:flex;
-  align-items:center;
-  justify-content: center;
-}*/
 canvas {
-  /*border:1px solid #d3d3d3;*/
   margin:5px;
-  /*min-width:fit-content;*/
   display:inline-block;
 }
 .box {
@@ -57,10 +48,7 @@ canvas {
   min-width:min-content;
   margin:5px;
   padding:5px;
-  border:1px solid none;
   background:black;
-/*  text-align:center;*/
-  
 }
 .innerBox {
   display:inline-block;
@@ -71,10 +59,8 @@ canvas {
 }
 .output {
   display:block;
-  border:2px solid none;
 }
 .blok {
   display:block;
   border:1px solid white;
-
 }
