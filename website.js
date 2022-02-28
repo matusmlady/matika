@@ -1,6 +1,6 @@
 let timer, predosleZnenie, time
 animacieInstrukcie = []
-prestavkovyCas = 250
+prestavkovyCas = 500
 vystupHlavny = document.getElementById('outputMain')
 platnoHlavne = document.getElementById("canvasMain")
 lastInput = undefined
